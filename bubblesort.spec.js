@@ -1,7 +1,6 @@
 describe('Bubble Sort', function() {
-  beforeAll(function() {
-    let counter = 0;
-    spyOn(counter, 'swap').and.callThrough();
+  beforeEach(function() {
+    spyOn(window, 'swap').and.callThrough();
   });
   it('calls "swap"', function() {
     bubbleSort([3, 2, 1]);
@@ -12,10 +11,18 @@ describe('Bubble Sort', function() {
   });
 
   it('handles a single element array', function() {
-    expect(bubbleSort([1]).toEqual([1]));
+    expect(bubbleSort([1])).toEqual([1]);
   });
 
   it('handles multiple-element arrays', function() {
-    expect(bubbleSort([3, 2, 1]).toEqual([1, 2, 3]));
+    expect(bubbleSort([3, 2, 1])).toEqual([1, 2, 3]);
+  });
+
+  it('takes a comparator function', function() {
+    expect(bubbleSort([1, 3, 2], (a, b) => Math.sign(b - a))).toEqual([
+      3,
+      2,
+      1,
+    ]);
   });
 });
